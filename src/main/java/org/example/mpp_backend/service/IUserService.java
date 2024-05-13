@@ -1,7 +1,7 @@
 package org.example.mpp_backend.service;
 
 import org.example.mpp_backend.entities.User;
-import org.example.mpp_backend.entities.UserDto;
+import org.example.mpp_backend.dto.UserDto;
 
 import java.util.List;
 

@@ -5,7 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.List;
 
 @Getter
@@ -15,7 +18,7 @@ import java.util.List;
 @Entity
 @Table(name="users")
 
-public class User {
+public class User implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -37,14 +40,49 @@ public class User {
     @Column(name="user_password", nullable=false)
     private String userPassword;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-            name="roles",
-            joinColumns = {
-                    @JoinColumn(name="USER_ID", referencedColumnName = "ID")},
-            inverseJoinColumns = {
-                    @JoinColumn(name="ROLE_ID", referencedColumnName = "ID")
-            }
-    )
-    private List<Role> roles;
+//    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @JoinTable(
+//            name="roles",
+//            joinColumns = {
+//                    @JoinColumn(name="USER_ID", referencedColumnName = "ID")},
+//            inverseJoinColumns = {
+//                    @JoinColumn(name="ROLE_ID", referencedColumnName = "ID")
+//            }
+//    )
+//    private List<Role> roles;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
+    @Override
+    public String getPassword() {
+        return userPassword;
+    }
+
+    @Override
+    public String getUsername() {
+        return userEmail;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
