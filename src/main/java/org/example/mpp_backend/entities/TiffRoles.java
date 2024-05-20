@@ -1,5 +1,6 @@
 package org.example.mpp_backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,6 @@ import java.util.List;
 @AllArgsConstructor
 @Entity     // This tells Hibernate to make a table out of this class
 @Table (name = "tiff_roles")
-
 public class TiffRoles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,6 +39,11 @@ public class TiffRoles {
     @OneToMany(mappedBy = "tiffRole", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Tasks> tasks;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
+    private User user;
 
     public TiffRoles(long id, String roleName, String type, String openRoles, String schedule, String expectation) {
         this.id = id;

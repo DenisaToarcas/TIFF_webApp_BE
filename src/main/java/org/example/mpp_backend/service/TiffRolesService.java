@@ -3,6 +3,8 @@ package org.example.mpp_backend.service;
 import lombok.AllArgsConstructor;
 import org.example.mpp_backend.entities.TiffRoles;
 import org.example.mpp_backend.repository.TiffRolesRepository;
+import org.example.mpp_backend.repository.UserRepository;
+import org.example.mpp_backend.validation.TasksValidation;
 import org.example.mpp_backend.validation.TiffRoleValidation;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class TiffRolesService {
     private final TiffRolesRepository tiffRolesRepository;
+    private final UserRepository userRepository;
 
     public List<TiffRoles> getAllTiffRoles() {
         return tiffRolesRepository.findAll();
@@ -25,8 +28,31 @@ public class TiffRolesService {
         }
     }
 
-    public TiffRoles addTiffRoles(TiffRoles tiffRoles) {
-        return tiffRolesRepository.save(tiffRoles);
+    public List<TiffRoles> getTiffRolesFromUser(long user_id)
+    {
+        if (userRepository.getUserById(user_id) != null)
+            return userRepository.getUserById(user_id).getTiffRoles();
+        else
+            throw new RuntimeException("There is no user with this id "+ user_id);
+    }
+
+    public TiffRoles addTiffRoles(long user_id, TiffRoles tiffRoles) {
+        if (userRepository.getUserById(user_id) != null) {
+
+            TiffRoleValidation.validateRole(tiffRoles);
+            tiffRoles.setUser(userRepository.getUserById(user_id));
+            tiffRolesRepository.save(tiffRoles);
+
+            return tiffRoles;
+        } else {
+            throw new RuntimeException("There is no user with this id: " + user_id);
+        }
+    }
+
+    public void addTiffRolesWithoutUser(TiffRoles tiffRoles)
+    {
+        TiffRoleValidation.validateRole(tiffRoles);
+        tiffRolesRepository.save(tiffRoles);
     }
 
     public TiffRoles updateTiffRoles(long id, TiffRoles updatedTiffRole) {

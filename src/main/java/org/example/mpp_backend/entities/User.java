@@ -1,5 +1,6 @@
 package org.example.mpp_backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,6 +40,20 @@ public class User implements UserDetails {
 
     @Column(name="user_password", nullable=false)
     private String userPassword;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<TiffRoles> tiffRoles;
+
+    public User(long id, String username, String userAddress,String userCnp, String userEmail, String userPassword)
+    {
+        this.id = id;
+        this.username = username;
+        this.userAddress = userAddress;
+        this.userCnp = userCnp;
+        this.userEmail = userEmail;
+        this.userPassword = userPassword;
+    }
 
 //    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 //    @JoinTable(

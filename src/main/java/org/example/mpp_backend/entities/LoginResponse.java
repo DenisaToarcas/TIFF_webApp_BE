@@ -13,4 +13,6 @@ public class LoginResponse {
     private String token;
 
     private long expires;
+
+    private long user_id;
 }

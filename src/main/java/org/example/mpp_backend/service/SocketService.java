@@ -51,7 +51,7 @@ public class SocketService {
         long id = new Faker().number().numberBetween(10, 1000);
 
         TiffRoles role = new TiffRoles(id, roleName, type, openRoles, schedule, expectation);
-        service.addTiffRoles(role);
+        service.addTiffRolesWithoutUser(role);
 
         server.getBroadcastOperations().sendEvent("added a new role", role);
     }

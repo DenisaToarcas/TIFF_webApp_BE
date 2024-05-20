@@ -1,9 +1,10 @@
 package org.example.mpp_backend.dto;
 
 //import org.example.mpp_backend.entities.Role;
+import org.example.mpp_backend.entities.TiffRoles;
 import org.example.mpp_backend.entities.User;
 
-//import java.util.List;
+import java.util.List;
 
 public class UserDto {
     public Long id;
@@ -12,6 +13,7 @@ public class UserDto {
     public String CNP;
     public String email;
     public String password;
+    public List<TiffRoles> tiffRoles;
     //public List<String> roles;
 
     public static UserDto fromUser(User user) {
@@ -22,6 +24,7 @@ public class UserDto {
         dto.CNP = user.getUserCnp();
         dto.email = user.getUserEmail();
         dto.password = user.getUserPassword();
+        dto.tiffRoles = user.getTiffRoles();
 //        dto.roles = user.getRoles().stream().map(
 //                Role::getRoleName
 //        ).toList();

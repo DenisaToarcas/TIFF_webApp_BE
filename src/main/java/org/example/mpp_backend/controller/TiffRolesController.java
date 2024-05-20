@@ -35,9 +35,15 @@ public class TiffRolesController {
             return ResponseEntity.ok(service.getAllTiffRoles());
     }
 
-    @PostMapping
-    public ResponseEntity<TiffRoles> addRole(@RequestBody TiffRoles role) {
-        return new ResponseEntity<>(service.addTiffRoles(role), HttpStatus.CREATED);
+    @GetMapping("/user_id={user_id}")
+    public ResponseEntity<List<TiffRoles>> getRolesFromUser(@PathVariable long user_id)
+    {
+        return ResponseEntity.ok(service.getTiffRolesFromUser(user_id));
+    }
+
+    @PostMapping("{user_id}")
+    public ResponseEntity<TiffRoles> addRole(@PathVariable long user_id, @RequestBody TiffRoles role) {
+        return new ResponseEntity<>(service.addTiffRoles(user_id, role), HttpStatus.CREATED);
     }
 
     @PutMapping("{id}")
