@@ -128,8 +128,8 @@
                     <appName>backend</appName>
                     <isPublic>true</isPublic>
                     <deployment>
-                        <cpu>3</cpu>
-                        <memoryInGB>5</memoryInGB>
+                        <cpu>2</cpu>
+                        <memoryInGB>4</memoryInGB>
                         <instanceCount>10</instanceCount>
                         <runtimeVersion>Java 17</runtimeVersion>
                         <resources>
