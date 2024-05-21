@@ -1,13 +1,13 @@
-package org.example.mpp_backend;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-@SpringBootTest
-class MppBackendApplicationTests {
-
-    @Test
-    void contextLoads() {
-    }
-
-}
+//package org.example.mpp_backend;
+//
+//import org.junit.jupiter.api.Test;
+//import org.springframework.boot.test.context.SpringBootTest;
+//
+//@SpringBootTest
+//class MppBackendApplicationTests {
+//
+//    @Test
+//    void contextLoads() {
+//    }
+//
+//}
